@@ -1,0 +1,263 @@
+@import "uikit/src/scss/variables-theme.scss";
+@import "uikit/src/scss/mixins-theme.scss";
+@import "uikit/src/scss/uikit.scss";
+
+$bgcolor: #f7fbfc;
+$main-color: #70adb5;
+
+html {
+  background-color: $bgcolor;
+}
+
+a {
+  color: $main-color;
+}
+
+.justified {
+  text-align: justify;
+}
+
+em {
+  font-style: normal;
+}
+
+button {
+  cursor: pointer;
+}
+
+.uk-container .navbar {
+  background-color: $main-color;
+  min-height: 60px;
+  li:hover,
+  li:focus {
+    background-color: #0c3446;
+  }
+  a {
+    color: #0c3446;
+  }
+  li a {
+    font-size: 1.2rem;
+    color: white;
+    min-height: 60px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    line-height: 20px;
+  }
+  .uk-logo {
+    min-height: 60px;
+  }
+}
+
+.navbar-active {
+  background-color: rgba(12, 52, 70, 0.8);
+}
+
+h1 {
+  color: #0c3446;
+}
+
+#return-to-top {
+  cursor: pointer;
+}
+
+.uk-table {
+  thead {
+    background-color: $main-color;
+    th {
+      color: white;
+      text-align: center;
+    }
+  }
+}
+
+hr {
+  background-color: #0c3446;
+  height: 3px;
+}
+
+.statistics {
+  tr {
+    th:last-child,
+    td:last-child {
+      padding-right: 10px;
+    }
+  }
+  tbody {
+    tr {
+      &:nth-child(6n + 1) {
+        background-color: #f8f8f8;
+        border-top: 1px solid #e5e5e5;
+        td:nth-child(-n + 2) {
+          border-bottom: 1px solid #e5e5e5;
+        }
+      }
+      &:nth-child(6n + 2) {
+        background-color: #f8f8f8;
+      }
+      &:nth-child(6n + 3) {
+        background-color: #f8f8f8;
+        border-bottom: 1px solid #e5e5e5;
+      }
+      &:not(:nth-last-child(3)) {
+        &:nth-child(3n + 1) {
+          td:first-child {
+            font-style: italic;
+          }
+        }
+      }
+    }
+  }
+}
+
+.faq-table {
+  thead {
+    background-color: unset;
+    td {
+      color: black;
+      text-align: center;
+      font-weight: bold;
+      border: solid 1px #e5e5e5;
+    }
+  }
+  tbody {
+    td {
+      border: solid 1px #e5e5e5;
+    }
+  }
+}
+
+.anchor[id^="faq_"] {
+  display: block;
+  position: relative;
+  top: -70px;
+  visibility: hidden;
+}
+
+.margin-left {
+  margin-left: 2rem;
+}
+
+#return-to-top {
+  z-index: 1;
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: rgb(112, 173, 181);
+  background: rgba(112, 173, 181, 0.6);
+  width: 50px;
+  height: 50px;
+  display: block;
+  text-decoration: none;
+  border-radius: 35px;
+  display: none;
+  transition: all 0.3s ease;
+
+  span {
+    color: #fff;
+    margin: 0;
+    position: relative;
+    left: 5px;
+    top: 8px;
+    transition: all 0.3s ease;
+  }
+
+  &:hover {
+    background: rgb(112, 173, 181);
+  }
+  &:hover span {
+    color: #fff;
+    top: 0px;
+  }
+}
+.dl-horizontal {
+  $dtWidth: 180px;
+  dt,
+  dd {
+    padding-bottom: 1rem;
+  }
+  dt {
+    width: $dtWidth;
+    float: left;
+    clear: left;
+    text-align: right;
+    font-weight: bold;
+  }
+  dt::after {
+    content: ":";
+  }
+  dd {
+    margin-left: $dtWidth + 20px;
+  }
+}
+
+.browse-select option:first-of-type {
+  font-style: normal;
+}
+
+.browse-select option {
+  font-style: italic;
+}
+
+.browse-select select {
+  font-style: italic;
+}
+
+.browse-select select {
+  @extend .uk-select;
+}
+
+.browse_row_hover {
+  background: rgba(112, 173, 181, 0.5);
+  cursor: pointer;
+}
+
+.logo {
+  max-width: 150px;
+  margin-bottom: 20px;
+  margin-right: 5vw;
+}
+
+#spinner {
+  background: url("/images/preloader.gif") no-repeat center center fixed
+    $bgcolor;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+}
+
+.binding-sites {
+  height: 30rem;
+  overflow: auto;
+}
+
+.title {
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.statistics .siluette {
+  padding: 5px;
+  text-align: center;
+  vertical-align: middle;
+  img {
+    max-height: 50px;
+    width: 50px;
+    max-width: unset;
+  }
+}
+
+.siluette-large {
+  img {
+    margin-top: 2em;
+    max-width: 100px;
+    max-height: 100px;
+  }
+}
+
+.siluette-small {
+  img {
+    max-width: 50px;
+    max-height: 30px;
+    margin-left: 1rem;
+  }
+}

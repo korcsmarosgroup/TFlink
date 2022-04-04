@@ -1,0 +1,139 @@
+{{ define "main" }}
+
+{{ $statistics_file := "/static/data/statistics.csv" }}
+{{ $sep := ";" }}
+{{ $statistics := getCSV $sep $statistics_file }}
+
+<div class="uk-cover-container uk-height-medium">
+  <img src="/images/nyitokep_logoval_4.png" alt="" uk-cover />
+</div>
+
+<main aria-role="main">
+  <div class="">
+    <section>
+      <div class="uk-grid-small" uk-grid>
+        <div class="uk-card uk-card-body uk-width-3-5@m">
+          <h1 class="">About</h1>
+          <p style="text-align: justify;">
+            <i>TFLink</i> database uniquely provides comprehensive and highly
+            accurate information on
+            <strong>transcription factor - target gene interactions, nucleotide
+              sequences and genomic locations of transcription factor binding
+              sites </strong>for <em>human</em> and six model organisms: <em>mouse</em> (<i>Mus musculus</i>),
+            <em>rat</em> (<i>Rattus norvegicus</i>), <em>zebrafish</em> (<i>Danio rerio</i>),
+            <em>fruit fly</em> (<i>Drosophila melanogaster</i>), <em>nematode</em> (<i>Caenorhabditis elegans</i>),
+            and <em>yeast</em> (<i>Saccharomyces cerevisiae</i>). <i>TFLink</i> contains
+            clearly identified data, and provides information about the sources:
+            databases, experimental methods and publications. To create
+            <i>TFLink</i>, we examined the freely available large transcription
+            factor databases, and selected ten resources for integration:
+            <a href="https://saezlab.github.io/dorothea/" target="_blank">DoRothEA</a>,
+            <a href="http://gtrd.biouml.org/" target="_blank">GTRD</a>, 
+            <a href="http://www.lbbc.ibb.unesp.br/htri/" target="_blank">HTRIdb</a>,
+            <a href="http://jaspar.genereg.net/" target="_blank">JASPAR</a>,
+            <a href="http://www.oreganno.org/" target="_blank">ORegAnno</a>,
+            <a href="http://redfly.ccr.buffalo.edu/" target="_blank">REDfly</a>,
+            <a href="http://remap.univ-amu.fr/" target="_blank">ReMap</a>,
+            <a href="http://rulai.cshl.edu/cgi-bin/TRED/tred.cgi?process=home" target="_blank">TRED</a>,
+            <a href="https://www.grnpedia.org/trrust/" target="_blank">TRRUST</a>, and
+            <a href="http://www.yeastract.com/" target="_blank">Yeastract</a>. From these source databases we 
+            integrated accurate, small-scale (such as DNase-I footprinting and EMSA) 
+            and large-scale approaches (<i>e.g.</i> ChIP-seq; see the 
+            <a href="https://tflink.net/faq/" target="_blank">FAQ</a>
+            for the detailed list of methods).
+          </p>
+        </div>
+        <!-- <div class="uk-width-1-5@m"></div> -->
+        <div class="uk-card uk-card-body uk-width-expand uk-width-1-5@m">
+          <h1 class="">Contact us</h1>
+          <p>
+            Please write us if you have questions or wish to integrate your data
+            to TFLink:
+          </p>
+          <p>
+            <a href="mailto:tflink.net@gmail.com" target="_top">tflink.net@gmail.com</a>
+          </p>
+        </div>
+      </div>
+    </section>
+    <hr />    
+
+    <section class="uk-container">
+      <div class="uk-grid-small" uk-grid>
+        <div class="uk-card uk-card-body">
+          <h2 class="">Statistics of small scale data</h2>
+          <table class="uk-table uk-table-justify statistics">
+            <thead>
+              <tr>
+                <th class="uk-table-expand">Organism</th>
+                <th class=""></th>
+                <th class="uk-table-expand">Scale</th>
+                <th class="">Nr. of TFs⁴</th>
+                <th class="">Nr. of target genes</th>
+                <th class="">Nr. of interactions</th>
+                <th class="">Nr. of binding sites⁵</th>
+                <th class="">Nr. of binding sequences</th>
+              </tr>
+            </thead>
+            <tbody>
+              {{ range $i, $row:= (after 1 $statistics) }}
+                <tr>
+                  {{ $rowspan:= 1 }}
+                  {{ if eq (mod $i 3) 0 }}
+                    {{ $rowspan = 3 }}
+                    <td class="stat-organism" style="vertical-align: middle" rowspan=3>{{ index $row 0 }}</td>
+                  {{ end }}
+                  {{ if (and (lt $i 21) (eq (mod $i 3) 0))}}
+                    <td rowspan={{$rowspan}} class="siluette">
+                      <img src="{{ printf `/images/siluettes/%s.svg` (replace (index $row 0) ` ` `_`) }}" />
+                    </td>
+                  {{ end }}
+                  {{ if gt $i 20 }}
+                    <td></td>
+                  {{ end }}
+                  <td align="center">{{ index $row 1 }}</td>
+                  {{ range after 2 $row }}
+                    <td align="right">{{ lang.NumFmt 0 (int (index .)) "- . ," }}</td>
+                  {{ end }} 
+                </tr>
+              {{ end }} 
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+    <hr />
+    <div class="uk-container">
+      ⁴ TF: transcription factor<br />
+      ⁵ In some cases the number of binding sites and the number of binding sequences are different because among the data we 
+      downloaded from JASPAR there are binding sequences with missing localization, for example when random sequences were 
+      investigated with the SELEX.<br />
+      ⁶ The total number of TFs, target genes, etc. can be different from the sum of small- and large-scale data due to overlapping items.
+    
+    </div>
+  </div>
+</main>
+{{ end }} {{ define "footer"}}
+<div class="uk-grid-medium uk-flex-center uk-flex-middle uk-child-width-1-6" uk-grid>
+  <div class="logo">
+    <a href="http://group.szbk.u-szeged.hu/sysbiol/papp-balazs-lab-index.html">
+      <img src="/images/brc_logo.png" width="60%" />
+    </a>
+  </div>
+  <div class="logo">
+    <a href="https://www.earlham.ac.uk/korcsmaros-group">
+      <img src="/images/EI-double-large-trans-highquality.png" />
+    </a>
+  </div>
+  <div class="logo">
+    <a href="https://www.hcemm.eu/">
+      <img src="/images/H-CEMM_Logo_RGB.jpg" />
+    </a>
+  </div>
+  <div class="logo">
+    <a href="https://genetics.elte.hu/index.php/en/">
+      <img src="/images/elte_cimer_szines.png" width="70%" />
+    </a>
+  </div>
+</div>
+{{ end }}
